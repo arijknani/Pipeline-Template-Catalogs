@@ -1,8 +1,8 @@
   version: 1
   type: pipeline-template
 
-  name: integrate oc command
-  description: deployment my app on openshift
+  name: test git
+  description: test template with git
   parameters:
     - name: github_repo
       type: string
