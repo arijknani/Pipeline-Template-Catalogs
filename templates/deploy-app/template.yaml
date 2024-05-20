@@ -4,7 +4,7 @@
   name: application deployment 
   description: application deployment
   parameters:
-    - name: docker_registry
+    - name: docker_repo
       type: string
       displayName: docker hub repo
     - name: image_name
