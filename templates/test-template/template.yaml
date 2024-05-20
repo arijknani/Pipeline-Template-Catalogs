@@ -7,7 +7,7 @@
     - name: github_repo
       type: string
       displayName: GitHub HTTPS repo endpoint
-    - name: github_creds
+    - name: git-cred
       displayName: GitHub Credentials ID
       type: credentials
       defaultValue: github-creds-example
