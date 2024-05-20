@@ -25,6 +25,9 @@
     - name: app_cm
       type: string
       displayName: env of the app
+    - name: openshift_server
+      type: string
+      displayName: openshift server url 
     - name: openshift_creds
       displayName: openshift Credentials ID
       type: credentials
