@@ -68,14 +68,14 @@ spec:
                         if (!deploymentExists) {
                             echo "Deployment ${app_name} does not exist, deployment app..."
                             sh "oc new-app --docker-image=docker.io/${docker_repo}/${image_name} --name=${app_name}"
-                            sh "oc set env --from=secret/${APP_SECRET} dc/${app_name}"
-                            sh "oc set env --from=configmap/${APP_CM} dc/${app_name}"
+                            sh "oc set env --from=secret/${app_secret} dc/${app_name}"
+                            sh "oc set env --from=configmap/${app_cm} dc/${app_name}"
                             sh "oc expose svc/${app_name}"
                         } else {
                             echo "Deployment ${app_name} exists, refreshing app..."
                             sh "oc rollout latest dc/${app_name}"
-                            sh "oc set env --from=secret/${APP_SECRET} dc/${app_name} "
-                            sh "oc set env --from=configmap/${APP_CM} dc/${app_name} "
+                            sh "oc set env --from=secret/${app_secret} dc/${app_name} "
+                            sh "oc set env --from=configmap/${app_cm} dc/${app_name} "
                             
                         }
                     }
