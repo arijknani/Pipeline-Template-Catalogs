@@ -6,9 +6,9 @@ pipeline {
                 script {
                     wrap([$class: 'OpenShiftBuildWrapper',  
                         installation: 'oc', 
-                        url: '${env.openshift_url}', 
+                        url: '${openshift_url}', 
                         insecure: true, 
-                        credentialsId: '${env.openshift_creds}']) { 
+                        credentialsId: '${openshift_creds}']) { 
                         def deploymentExists = sh(script: "oc get dc/${app_name}", returnStatus: true) == 0
                         if (!deploymentExists) {
                             echo "Deployment ${app_name} does not exist, deployment app..."
