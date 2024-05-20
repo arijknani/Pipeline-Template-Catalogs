@@ -6,20 +6,23 @@
   parameters:
     - name: docker_registry
       type: string
-      displayName: docker hub regstry 
+      displayName: docker hub repo
     - name: image_name
       type: string
-      displayName: image name  
+      displayName: image in docker hub   
     - name: app_name
       type: string
       displayName: the name of the application to deploy 
     - name: app_secret
       type: string
-      displayName: secrets env 
+      displayName: secrets oc the application
     - name: app_cm
       type: string
-      displayName: env of the app
+      displayName: environment of the application  
     - name: openshift_server
       type: string
       displayName: openshift server url 
+    - name: openshift_creds
+      displayName: openshift token/password
+      type: credentials
 
