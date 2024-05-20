@@ -7,7 +7,7 @@
     - name: docker_registry
       type: string
       displayName: docker hub regstry 
-    - name: docker_image
+    - name: image_name
       type: string
       displayName: image name  
     - name: app_name
