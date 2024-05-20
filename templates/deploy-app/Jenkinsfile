@@ -33,7 +33,7 @@ spec:
         stage('Build with Buildah') {
             steps {
                 container('buildah') {
-                    sh 'buildah build -t ${docker_registry}/${IMAGE}:${TAG} .'
+                    sh 'buildah build -t ${docker_repo}/${IMAGE}:latest .'
                 }
             }
         }
@@ -50,7 +50,7 @@ spec:
         stage('push image') {
             steps {
                 container('buildah') {
-                    sh 'buildah push ${docker_registry}/${IMAGE}:${TAG}'
+                    sh 'buildah push ${docker_repo}/${IMAGE}:latest'
                 }
             }
         }
