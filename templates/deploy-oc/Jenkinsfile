@@ -12,7 +12,7 @@ pipeline {
                         def deploymentExists = sh(script: "oc get dc/${app_name}", returnStatus: true) == 0
                         if (!deploymentExists) {
                             echo "Deployment ${app_name} does not exist, deployment app..."
-                            sh "oc new-app --docker-image=docker.io/${}/${} --name=${app_name}"
+                            sh "oc new-app --docker-image=docker.io/${docker_registry}/${image_name} --name=${app_name}"
                             sh "oc set env --from=secret/${app_secret} dc/${app_name}"
                             sh "oc set env --from=configmap/${app_cm} dc/${app_name}"
                             sh "oc expose svc/${app_name}"
