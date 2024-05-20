@@ -33,7 +33,7 @@ spec:
         stage('Build with Buildah') {
             steps {
                 container('buildah') {
-                    sh 'buildah build -t ${DOCKER_REPO}/${IMAGE}:${TAG} .'
+                    sh 'buildah build -t ${docker_registry}/${IMAGE}:${TAG} .'
                 }
             }
         }
@@ -50,7 +50,7 @@ spec:
         stage('push image') {
             steps {
                 container('buildah') {
-                    sh 'buildah push ${DOCKER_REPO}/${IMAGE}:${TAG}'
+                    sh 'buildah push ${docker_registry}/${IMAGE}:${TAG}'
                 }
             }
         }
@@ -67,7 +67,7 @@ spec:
                         def deploymentExists = sh(script: "oc get dc/${APP_NAME}", returnStatus: true) == 0
                         if (!deploymentExists) {
                             echo "Deployment ${APP_NAME} does not exist, deployment app..."
-                            sh "oc new-app --docker-image=${REGISTRY_URL} --name=${APP_NAME}"
+                            sh "oc new-app --docker-image=docker.io/${docker_registry}/${} --name=${APP_NAME}"
                             sh "oc set env --from=secret/${APP_SECRET} dc/${APP_NAME}"
                             sh "oc set env --from=configmap/${APP_CM} dc/${APP_NAME}"
                             sh "oc expose svc/${APP_NAME}"
