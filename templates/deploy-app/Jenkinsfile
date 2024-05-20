@@ -76,6 +76,7 @@ spec:
                             sh "oc rollout latest dc/${app_name}"
                             sh "oc set env --from=secret/${app_secret} dc/${app_name} "
                             sh "oc set env --from=configmap/${app_cm} dc/${app_name} "
+                            sh "oc expose svc/${app_name}"
                             
                         }
                     }
