@@ -22,6 +22,4 @@
     - name: openshift_server
       type: string
       displayName: openshift server url 
-    - name: openshift_creds
-      displayName: openshift Credentials ID
-      type: credentials
+
