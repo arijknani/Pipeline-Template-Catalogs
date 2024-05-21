@@ -10,7 +10,7 @@
     - name: docker_repo
       type: string
       displayName: docker hub repo
-    - name: image
+    - name: docker_image
       type: string
       displayName: image in docker hub   
     - name: app_name
