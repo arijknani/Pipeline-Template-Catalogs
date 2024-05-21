@@ -4,15 +4,15 @@
   name: application deployment 
   description: application deployment
   parameters:
+    - name: dockerhub_creds
+      displayName: docker hub credentials
+      type: credentials
     - name: docker_repo
       type: string
       displayName: docker hub repo
-    - name: image_name
+    - name: image
       type: string
       displayName: image in docker hub   
     - name: app_name
       type: string
       displayName: the name of the application to deploy 
-    - name: DOCKERHUB_CREDS
-      displayName: docker hub credentials
-      type: credentials
