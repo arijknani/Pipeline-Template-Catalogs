@@ -14,7 +14,7 @@ pipeline {
         stage('Build with Buildah') {
             steps {
                 container('buildah') {
-                    sh 'buildah build --storage-driver=vfs -t quay.io/${quay_repo}/${image_name} -f Dockerfile .'
+                    sh "buildah build --storage-driver=vfs -t quay.io/${quay_repo}/${image_name} -f Dockerfile ."
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
         stage('Login to quay') {
             steps {
                 container('buildah') {
-                    sh 'echo ${quay_creds_psw} | buildah login -u ${quay_creds_usr} --password-stdin quay.io'
+                    sh "echo ${quay_creds_psw} | buildah login -u ${quay_creds_usr} --password-stdin quay.io"
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('push image') {
             steps {
                 container('buildah') {
-                    sh 'buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}'
+                    sh "buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}"
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline {
     post {
     always {
       container('buildah') {
-        sh 'buildah logout quay.io'
+        sh "buildah logout quay.io"
       }
     }
   }
