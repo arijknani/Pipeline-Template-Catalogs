@@ -1,30 +1,16 @@
 pipeline {
     agent {
         kubernetes {
-            yaml '''
-apiVersion: v1
-kind: Pod
-metadata:
-  name: buildah
-spec:
-  containers:
-  - name: buildah
-    image: quay.io/buildah/stable:latest
-    command:
-    - cat
-    tty: true
-    securityContext:
-      capabilities:
-        add: ["SETFCAP"]
-    volumeMounts:
-      - name: varlibcontainers
-        mountPath: /var/lib/containers
-  volumes:
-    - name: varlibcontainers
-      emptyDir: {}
-'''
+          inheritFrom 'buildah' 
         }
     }
+    environment {
+        QUAY_CREDS = credentials('quay_creds')
+        quay_repo = "arijknani"
+        image_name = "my-app"
+        app_name = "pfe-project"
+        openshift_project = "arij-project"
+         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '3'))
         durabilityHint('PERFORMANCE_OPTIMIZED')
@@ -45,7 +31,7 @@ spec:
         stage('Login to quay') {
             steps {
                 container('buildah') {
-                    sh 'echo ${quay_creds_psw} | buildah login -u  ${quay_creds_usr} --password-stdin quay.io'
+                    sh 'echo $QUAY_CREDS_PSW | buildah login -u $QUAY_CREDS_USR --password-stdin quay.io'
                 }
             }
         }
