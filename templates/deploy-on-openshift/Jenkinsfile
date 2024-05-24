@@ -4,13 +4,6 @@ pipeline {
           inheritFrom 'buildah' 
         }
     }
-    environment {
-        QUAY_CREDS = credentials('quay_creds')
-        quay_repo = "arijknani"
-        image_name = "my-app"
-        app_name = "pfe-project"
-        openshift_project = "arij-project"
-         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '3'))
         durabilityHint('PERFORMANCE_OPTIMIZED')
@@ -31,7 +24,7 @@ pipeline {
         stage('Login to quay') {
             steps {
                 container('buildah') {
-                    sh 'echo $QUAY_CREDS_PSW | buildah login -u $QUAY_CREDS_USR --password-stdin quay.io'
+                    sh 'echo ${quay_creds_psw} | buildah login -u ${quay_creds_usr} --password-stdin quay.io'
                 }
             }
         }
