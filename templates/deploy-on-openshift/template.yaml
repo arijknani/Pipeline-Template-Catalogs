@@ -4,9 +4,9 @@
   name: deployment with oc CLI
   description: deployment on openshift
   parameters:
-    - name: docker_repo
+    - name: quay_repo
       type: string
-      displayName: Docker Hub repository
+      displayName: quay.io repository
     - name: docker_image
       type: string
       displayName: image in  Docker Hub   
