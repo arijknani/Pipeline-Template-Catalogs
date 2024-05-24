@@ -1,0 +1,15 @@
+  version: 1
+  type: pipeline-template
+
+  name: deployment with oc CLI
+  description: deployment on openshift
+  parameters:
+    - name: docker_repo
+      type: string
+      displayName: Docker Hub repository
+    - name: docker_image
+      type: string
+      displayName: image in  Docker Hub   
+    - name: app_name
+      type: string
+      displayName: The name of the Application to deploy   
