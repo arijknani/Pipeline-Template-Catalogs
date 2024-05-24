@@ -1,7 +1,7 @@
   version: 1
   type: pipeline-template
 
-  name: deployment with oc CLI
+  name: deployment on openshift
   description: deployment on openshift
   parameters:
     - name: quay_repo
