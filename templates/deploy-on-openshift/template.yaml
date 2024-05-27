@@ -4,27 +4,38 @@
   name: deployment on openshift 
   description: deployment on openshift using template
   parameters:
-    - name: branch_name
-      type: string
-      displayName: branch name of the application
+  
     - name: repo_url
       type: string
-      displayName: repo url of the application 
+      displayName: Github repo url of the application
+    - name: branch_name
+      type: string
+      displayName: Branch name of the application
+    - name: github_creds
+      type: credentials
+      displayName: git hub credentials
+     
     - name: quay_repo
       type: string
       displayName: quay.io repository
     - name: image_name
       type: string
-      displayName: Image Name in quay.io  
-    - name: openshift_project
-      type: string
-      displayName: openshift project
-    - name: app_name
-      type: string
-      displayName: The name of the Application to deploy
-    - name: github_creds
-      type: credentials
-      displayName: git hub credentials
+      displayName: Image Name in quay.io
     - name: quay_creds
       type: credentials
       displayName: quay.io credentials
+      
+    
+    - name: openshift_url
+      type: string
+      displayName: Openshift server url
+    - name: openshift_creds
+      type: credentials
+      displayName: openshift credentials
+    - name: openshift_project
+      type: string
+      displayName: openshift project name
+    - name: app_name
+      type: string
+      displayName: The name of the Application to deploy
+    
