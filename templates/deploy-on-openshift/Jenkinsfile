@@ -1,4 +1,8 @@
 pipeline {
+    environment { 
+        QUAY_CREDS = credentials('${quay_creds}') 
+        }
+    }
     agent {
         kubernetes {
           inheritFrom 'buildah' 
@@ -35,7 +39,7 @@ pipeline {
         stage('Login to quay') {
             steps {
                 container('buildah') {
-                    sh "echo ${quay_creds_PSW} | buildah login -u ${quay_creds_USR} --password-stdin quay.io"
+                    sh "echo ${QUAY_CREDS_PSW} | buildah login -u ${QUAY_CREDS_USR} --password-stdin quay.io"
              }
             }
         }
@@ -55,9 +59,9 @@ pipeline {
                 script {
                     wrap([$class: 'OpenShiftBuildWrapper',  
                           installation: 'oc', 
-                          url: 'https://api.ocp.smartek.ae:6443', 
+                          url: "${openshift_url}", 
                           insecure: true, 
-                          credentialsId: 'openshift_creds']) { 
+                          credentialsId: "${openshift_creds}"]) { 
                         sh "oc project ${openshift_project}"
                         def deploymentExists = sh(script: "oc get deploy/${app_name}", returnStatus: true) == 0
                         if (deploymentExists) {
