@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        QUAY_CREDS = credentials('${quay_creds}') 
+        QUAY_CREDS = credentials("${quay_creds}") 
         }
     
     agent {
