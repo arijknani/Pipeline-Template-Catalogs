@@ -29,9 +29,9 @@
     - name: openshift_url
       type: string
       displayName: Openshift server url
-    - name: openshift_creds
+    - name: sa_token
       type: credentials
-      displayName: openshift credentials
+      displayName: openshift SA token
     - name: openshift_project
       type: string
       displayName: openshift project name
