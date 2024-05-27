@@ -2,7 +2,7 @@ pipeline {
     environment { 
         QUAY_CREDS = credentials('${quay_creds}') 
         }
-    }
+    
     agent {
         kubernetes {
           inheritFrom 'buildah' 
