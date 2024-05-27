@@ -8,9 +8,24 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '3'))
         durabilityHint('PERFORMANCE_OPTIMIZED')
         disableConcurrentBuilds()
+        skipDefaultCheckout: true
     }
     
     stages {
+        stage('checkout') {
+            steps {
+                checkout($class: "GitSCM",
+                    branches: [name: ["${branch_name}"]],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[credentialsId: ${git_creds}, url:  ${repo_url}]]     
+                        
+                        
+                        )
+            }
+        }
+        
         stage('Build with Buildah') {
             steps {
                 container('buildah') {
