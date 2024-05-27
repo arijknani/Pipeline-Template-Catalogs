@@ -38,8 +38,10 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: "${quay_creds}", usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
                     sh "echo ${QUAY_USERNAME} | buildah login -u ${QUAY_PASSWORD} --password-stdin quay.io"
                 }
+             }
             }
         }
+        
 
 
         stage('push image') {
