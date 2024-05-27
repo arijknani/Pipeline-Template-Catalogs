@@ -36,7 +36,7 @@ pipeline {
             steps {
                 container('buildah') {
                     withCredentials([usernamePassword(credentialsId: "${quay_creds}", usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
-                    sh "echo ${QUAY_USERNAME} | buildah login -u ${QUAY_PASSWORD} --password-stdin quay.io"
+                    sh "echo ${QUAY_PASSWORD} | buildah login -u ${QUAY_USERNAME} --password-stdin quay.io"
                 }
              }
             }
