@@ -14,15 +14,13 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout($class: "GitSCM",
+                checkout([$class: "GitSCM",
                     branches: [name: ["${branch_name}"]],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     submoduleCfg: [],
                     userRemoteConfigs: [[credentialsId: ${github_creds}, url:  ${repo_url}]]     
-                        
-                        
-                        )
+                ])
             }
         }
         
