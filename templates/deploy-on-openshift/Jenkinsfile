@@ -19,7 +19,7 @@ pipeline {
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     submoduleCfg: [],
-                    userRemoteConfigs: [[credentialsId: ${git_creds}, url:  ${repo_url}]]     
+                    userRemoteConfigs: [[credentialsId: ${github_creds}, url:  ${repo_url}]]     
                         
                         
                         )
