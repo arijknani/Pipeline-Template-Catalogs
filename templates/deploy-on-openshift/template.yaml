@@ -10,8 +10,6 @@
     - name: repo_url
       type: string
       displayName: repo url of the application 
-    - name: image_name
-    - name: image_name
     - name: quay_repo
       type: string
       displayName: quay.io repository
