@@ -58,7 +58,7 @@ pipeline {
                           installation: 'oc', 
                           url: "${openshift_url}", 
                           insecure: true, 
-                          credentialsId: "${openshift_creds}"]) { 
+                          credentialsId: "${sa_token}"]) { 
                         sh "oc project ${openshift_project}"
                         def deploymentExists = sh(script: "oc get deploy/${app_name}", returnStatus: true) == 0
                         if (deploymentExists) {
