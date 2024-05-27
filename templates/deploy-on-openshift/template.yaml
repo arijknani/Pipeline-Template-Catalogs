@@ -1,8 +1,8 @@
   version: 1
   type: pipeline-template
 
-  name: deployment on openshift
-  description: deployment on openshift
+  name: deployment on openshift 
+  description: deployment on openshift using template
   parameters:
     - name: quay_repo
       type: string
