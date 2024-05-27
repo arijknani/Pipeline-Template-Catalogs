@@ -1,12 +1,11 @@
-pipeline {
-    environment { 
-        QUAY_CREDS = credentials("${quay_creds}") 
-        }
-    
+pipeline {    
     agent {
         kubernetes {
           inheritFrom 'buildah' 
         }
+    }
+    environment { 
+        QUAY_CREDS = credentials("${quay_creds}") 
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '3'))
