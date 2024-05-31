@@ -27,14 +27,27 @@ pipeline {
             }
         }
         
-        stage('Build with Buildah') {
+        stage('Stage build') {
             steps {
                 container('buildah') {
-                    sh "buildah build --help"
-                    sh "buildah build  --cache-from=quay.io/${quay_repo}/${image_name}:cache --cache-to=quay.io/${quay_repo}/${image_name}:cache  --storage-driver=vfs -t quay.io/${quay_repo}/${image_name} ."
                     sh "echo ${QUAY_CREDS_PSW} | buildah login -u ${QUAY_CREDS_USR} --password-stdin quay.io"
+                    def cacheExists = sh(script: """
+                            buildah inspect quay.io/${quay_repo}/${image_name}:cache > /dev/null 2>&1
+                            echo $?
+                        """, returnStatus: true) == 0
+                    if (cacheExists) {
+                            sh """
+                            buildah build --storage-driver=vfs --cache-from=quay.io/${quay_repo}/${image_name}:cache \\
+                            -t quay.io/${quay_repo}/${image_name}  .
+                            """
+                        } else {
+                            sh """
+                            buildah build --storage-driver=vfs --cache-to=quay.io/${quay_repo}/${image_name}:cache \\
+                            -t quay.io/${quay_repo}/${image_name}  .
+                            """
+                            sh "buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}:cache"
+                        }
                     sh "buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}"
-                    sh "buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}:cache"
                 }
             }
         }
