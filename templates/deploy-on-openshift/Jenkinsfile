@@ -31,10 +31,7 @@ pipeline {
             steps {
                 container('buildah') {
                     sh "echo ${QUAY_CREDS_PSW} | buildah login -u ${QUAY_CREDS_USR} --password-stdin quay.io"
-                    def cacheExists = sh(script: "
-                            buildah inspect quay.io/${quay_repo}/${image_name}:cache > /dev/null 2>&1
-                            echo \$?
-                        ", returnStatus: true) == 0
+                    def cacheExists = sh(script: "buildah inspect quay.io/${quay_repo}/${image_name}:cache > /dev/null 2>&1  echo \$? ", returnStatus: true) == 0
                     if (cacheExists) {
                             sh "buildah build --storage-driver=vfs --cache-from=quay.io/${quay_repo}/${image_name}:cache -t quay.io/${quay_repo}/${image_name}  ."
                         } else {
