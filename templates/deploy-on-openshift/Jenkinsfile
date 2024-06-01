@@ -28,9 +28,9 @@ pipeline {
         }
 
         
-       stage('Build with Buildah') {
+        stage('Build with Buildah') {
             steps {
-               container('buildah') {
+                container('buildah') {
                     script {
                         readCache name: 'buildah-cache'
                         dir('./buildah-cache') {
@@ -43,6 +43,7 @@ pipeline {
                 }
             }
         }
+        
         stage('deployment') {
             steps {
                 script {
