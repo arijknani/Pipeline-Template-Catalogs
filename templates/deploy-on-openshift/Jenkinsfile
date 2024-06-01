@@ -27,37 +27,22 @@ pipeline {
             }
         }
 
-        stage('Restore Cache') {
-            steps {
-                script {
-                    readCache name: 'buildah-cache'
-                }
-            }
-        }
         
        stage('Build with Buildah') {
             steps {
                container('buildah') {
                     script {
+                        readCache name: 'buildah-cache'
                         dir('./buildah-cache') {
                             sh "echo ${QUAY_CREDS_PSW} | buildah login -u ${QUAY_CREDS_USR} --password-stdin quay.io"
                             sh "buildah build --storage-driver=vfs -t quay.io/${quay_repo}/${image_name} -f Dockerfile"
                             sh "buildah push --storage-driver=vfs quay.io/${quay_repo}/${image_name}"
                         }
+                        writeCache name: 'buildah-cache', includes: './buildah-cache/**'
                     }
                 }
             }
         }
-
-        stage('Save Cache') {
-            steps {
-                script {
-                    writeCache name: 'buildah-cache', includes: './buildah-cache/**'
-                }
-            }
-        }
-
-
         stage('deployment') {
             steps {
                 script {
