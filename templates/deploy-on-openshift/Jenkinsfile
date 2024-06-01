@@ -32,7 +32,7 @@ pipeline {
                 container('buildah') {
                     sh "echo ${QUAY_CREDS_PSW} | buildah login -u ${QUAY_CREDS_USR} --password-stdin quay.io"
                     sh "buildah build -t quay.io/${quay_repo}/${image_name} -f Dockerfile --storage-driver=vfs"
-                    sh "buildah push quay.io/${quay_repo}/${image_name}   --storage-driver=vfs "
+                    sh "buildah push quay.io/${quay_repo}/${image_name}"
                 }
             }
         }
